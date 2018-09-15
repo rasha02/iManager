@@ -1,0 +1,82 @@
+
+<div class="page-content-wrapper ">
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card m-b-30">
+          <div class="card-body">
+
+            <h4 class="mt-0 header-title">Basic example</h4>
+
+            <div class="col-md-3">
+              <button style=" margin-left: 1300px" data-toggle="modal" data-target="#myModalAdd" type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" >Add project</button>
+            <!--  <button style=" margin-left: 1300px" type="button" class="btn btn-primary waves-effect waves-light" (click)="affectprojtouser(proj)" >Add project</button>-->
+            </div>
+            <br>
+
+
+
+            <table class="table">
+              <thead class="thead-default">
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Docs</th>
+                    <th>Remove</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of projs; let i=index">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{p.name}}</td>
+                  <td><a  routerLink="/dashboard/docbyproj/{{this.iduser}}/{{p._id}}" ><i class="mdi ion-clipboard"></i></a></td>
+                  <td>&nbsp;<a (click)="removeProjFromListProjByUser(p._id)"><i class="mdi mdi-bookmark-remove"></i></a>  </td>
+
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+
+        <div id="myModalAdd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">l
+                <h5 class="modal-title mt-0">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              </div>
+              <div class="modal-body">
+                <h4>ADD NEW USER</h4>
+                <div class="form-horizontal m-t-20" >
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <select  name="proj" [(ngModel)]="proj"  (change)="getidproj(proj)">
+                        <option  *ngFor=" let s of projects" [value]="s._id" >{{s.name}}</option>
+                      </select>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+               <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" (click)="affecNewProjToUser(proj)">Confirm</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Ignore</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+      </div> <!-- end col -->
+
+
+    </div>  <!-- end row -->
+
+
+  </div><!-- container -->
+
+
+</div> <!-- Page content Wrapper -->

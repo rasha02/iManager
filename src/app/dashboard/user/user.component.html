@@ -1,0 +1,383 @@
+
+<div class="page-content-wrapper ">
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card m-b-30">
+          <div class="card-body">
+
+            <h4 class="mt-0 header-title">Basic example</h4>
+
+            <div class="col-md-3">
+              <button style=" margin-left: 1300px" data-toggle="modal" data-target="#myModalAdd" type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" >Add new user</button>
+            </div>
+<br>
+
+
+
+            <table class="table">
+              <thead class="thead-default">
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Projets</th>
+                <th>Edit/Remove</th>
+
+
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let u of users; let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{u.name}}</td>
+                <td>{{u.email}}</td>
+                <td><a routerLink="/dashboard/projetbyuser/{{u._id}}"><i class="mdi ion-clipboard"></i></a></td>
+                <td><a data-toggle="modal" data-target="#myModalEdit" (click)="editUser(u._id,u.name,u.email,u.password)"><i class="mdi mdi-brush" ></i></a> &nbsp;&nbsp; <a (click)="removeUser(u._id)"><i class="mdi mdi-bookmark-remove"></i></a>  </td>
+
+
+
+                <div id="myModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">l
+                        <h5 class="modal-title mt-0">Edit User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      </div>
+                      <div class="modal-body">
+                        <h4>You are going to edit </h4>
+
+
+                        <div class="form-horizontal m-t-20" >
+
+
+                          <div class="form-group row">
+                            <div class="col-12">
+                              <input class="form-control" type="text" required="" placeholder="" [(ngModel)]="name">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-12">
+                              <input class="form-control" type="text" required="" placeholder="" [(ngModel)]="email">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-12">
+                              <input class="form-control" type="password" required="" placeholder="" [(ngModel)]="password">
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" (click)="updateUser()">Confirm</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Ignore</button>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                <div id="myModalRemove" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myModalLabel">Modal Heading</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      </div>
+                      <div class="modal-body">
+                        <h4>You really want to remove "{{u.firstName}} {{u.lastName}}"</h4>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" (click)="removeUser(u._id)">Confirm</button>
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Ignore</button>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+
+        <div id="myModalAdd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">l
+                <h5 class="modal-title mt-0">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              </div>
+              <div class="modal-body">
+                <h4>ADD NEW USER</h4>
+
+
+                <div class="form-horizontal m-t-20" >
+
+
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <input class="form-control" type="text" required="" placeholder=" name" [(ngModel)]="name">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <input class="form-control" type="email" required="" placeholder="email" [(ngModel)]="email">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <input class="form-control" type="password" required="" placeholder="password" [(ngModel)]="password">
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" (click)="addUser()">Confirm</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Ignore</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+      </div> <!-- end col -->
+
+      <!-- <div class="col-lg-6">
+         <div class="card m-b-30">
+           <div class="card-body">
+
+             <h4 class="mt-0 header-title">Bordered table</h4>
+             <p class="text-muted m-b-30 font-14">Add <code>.table-bordered</code> for
+               borders on all sides of the table and cells.
+             </p>
+
+             <table class="table table-bordered">
+               <thead>
+               <tr>
+                 <th>#</th>
+                 <th>First Name</th>
+                 <th>Last Name</th>
+                 <th>Username</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr>
+                 <th scope="row">1</th>
+                 <td>Mark</td>
+                 <td>Otto</td>
+                 <td>@mdo</td>
+               </tr>
+               <tr>
+                 <th scope="row">2</th>
+                 <td>Mark</td>
+                 <td>Otto</td>
+                 <td>@TwBootstrap</td>
+               </tr>
+               <tr>
+                 <th scope="row">3</th>
+                 <td colspan="2">Larry the Bird</td>
+                 <td>@twitter</td>
+               </tr>
+               </tbody>
+             </table>
+
+           </div>
+         </div>
+       </div> --> <!-- end col -->
+    </div>  <!-- end row -->
+
+
+    <!-- <div class="row"> -->
+    <!--  <div class="col-lg-6">
+       <div class="card m-b-30">
+         <div class="card-body">
+
+           <h4 class="mt-0 header-title">Striped rows</h4>
+           <p class="text-muted m-b-30 font-14">
+             Use <code>.table-striped</code> to add zebra-striping to any table row
+             within the <code>&lt;tbody&gt;</code>.
+           </p>
+
+           <table class="table table-striped">
+             <thead>
+             <tr>
+               <th>#</th>
+               <th>First Name</th>
+               <th>Last Name</th>
+               <th>Username</th>
+             </tr>
+             </thead>
+             <tbody>
+             <tr>
+               <th scope="row">1</th>
+               <td>Mark</td>
+               <td>Otto</td>
+               <td>@mdo</td>
+             </tr>
+             <tr>
+               <th scope="row">2</th>
+               <td>Jacob</td>
+               <td>Thornton</td>
+               <td>@fat</td>
+             </tr>
+             <tr>
+               <th scope="row">3</th>
+               <td>Larry</td>
+               <td>the Bird</td>
+               <td>@twitter</td>
+             </tr>
+             </tbody>
+           </table>
+
+         </div>
+       </div>
+     </div> --><!-- end col -->
+
+    <!--<div class="col-lg-6">
+      <div class="card m-b-30">
+        <div class="card-body">
+
+          <h4 class="mt-0 header-title">Hoverable rows</h4>
+          <p class="text-muted m-b-30 font-14">
+            Use <code>.table-striped</code> to add zebra-striping to any table row
+            within the <code>&lt;tbody&gt;</code>.
+          </p>
+
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div> --> <!-- end col -->
+    <!-- </div>   --> <!-- end row -->
+
+
+    <!-- <div class="row"> <!--
+      <div class="col-lg-6">
+        <div class="card m-b-30">
+          <div class="card-body">
+
+            <h4 class="mt-0 header-title">Table head options</h4>
+            <p class="text-muted m-b-30 font-14">Use one of two modifier classes to make
+              <code>&lt;thead&gt;</code>s appear light or dark gray.
+            </p>
+
+            <table class="table">
+              <thead class="thead-default">
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      <!-- </div>--> <!-- end col -->
+
+    <!-- <div class="col-lg-6">
+      <div class="card m-b-30">
+        <div class="card-body">
+
+          <h4 class="mt-0 header-title">Dark table</h4>
+          <p class="text-muted m-b-30 font-14">Your awesome text goes here.</p>
+
+          <table class="table table-dark">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div> --><!-- end col -->
+    <!-- </div>--> <!-- end row -->
+
+  </div><!-- container -->
+
+
+</div> <!-- Page content Wrapper -->
