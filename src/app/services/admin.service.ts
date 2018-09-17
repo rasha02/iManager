@@ -7,33 +7,33 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AdminService {
 
-  base_url="http://localhost:3000/admin"
+  base_url="http://localhost:3000/"
 
   constructor(private http:HttpClient) { }
 
   getAllAdmins(){
 
-    return this.http.get(this.base_url)
+    return this.http.get(this.base_url+"admin")
   }
 
   updateAdmin(id,name,email,password){
 
-    return this.http.put(this.base_url+"/updateAdmin/"+id, {name:name,email:email,password:password})
+    return this.http.put(this.base_url+"admin/updateAdmin/"+id+"?name="+name+"&email="+email+"&password="+password,{})
   }
 
   addAdmin(name,email,password){
 
-    return this.http.post(this.base_url+"/addAdmin",{name:name,email:email,password:password})
+    return this.http.post(this.base_url+"admin/addAdmin?name="+name+"&email="+email+"&password="+password, {})
   }
 
   removeAdmin(id){
 
-    return this.http.delete(this.base_url+"/removeAdmin?id="+id)
+    return this.http.get(this.base_url+"admin/removeAdmin?id="+id)
 
   }
 
   login(email , mdp){
-    return this.http.post(this.base_url+"/login?email="+email+"&password="+mdp , {})
+    return this.http.post(this.base_url+"admin/login?email="+email+"&password="+mdp ,{})
   }
 
 }

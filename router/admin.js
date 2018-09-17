@@ -1,6 +1,5 @@
 var express = require('express');
 var adminModel=require('../models/adminModel');
-var userModel=require('../models/userModel');
 var db=require('../models/db');
 var bodyParser = require('body-parser');
 
@@ -47,7 +46,7 @@ router.post('/login', function (req, res) {
 
 router.post('/addAdmin', function (req, res) {
 
-  console.log(req.body)
+  console.log(req.query)
 
   var admin= new adminModel({name: req.query.name, email: req.query.email, password: req.query.password});
   //save the new model
@@ -67,9 +66,9 @@ router.put('/updateAdmin/:id', function (req, res) {
   console.log(req.body)
 
       adminModel.findByIdAndUpdate(req.params.id,{
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
+        name: req.query.name,
+        email: req.query.email,
+        password: req.query.password
 
       }, {new:true}, function (err) {
 
@@ -85,9 +84,9 @@ router.put('/updateAdmin/:id', function (req, res) {
 
 //************************** Delete an admin ***********************
 
-router.delete('/removeAdmin', function (req, res) {
+router.get('/removeAdmin', function (req, res) {
 
-  adminModel.remove({_id: req.body.id}, function (err) {
+  adminModel.remove({_id: req.query.id}, function (err) {
 
     if(err){
       res.send({"state": "error"})

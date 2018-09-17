@@ -11,7 +11,7 @@
             <h4 class="mt-0 header-title">Basic example</h4>
 
             <div class="col-md-3">
-              <button style=" margin-left: 1300px" data-toggle="modal" data-target="#myModalAdd" type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" >Add new user</button>
+              <button style=" margin-left: 1000px" data-toggle="modal" data-target="#myModalAdd" type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" >Add new user</button>
             </div>
 <br>
 
@@ -23,7 +23,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Projets</th>
+                <th>Projects</th>
                 <th>Edit/Remove</th>
 
 
@@ -34,7 +34,7 @@
                 <th scope="row">{{i+1}}</th>
                 <td>{{u.name}}</td>
                 <td>{{u.email}}</td>
-                <td><a routerLink="/dashboard/projetbyuser/{{u._id}}"><i class="mdi ion-clipboard"></i></a></td>
+                <td><a routerLink="/dashboard/projects-by-user/{{u._id}}"><i class="mdi ion-clipboard"></i></a></td>
                 <td><a data-toggle="modal" data-target="#myModalEdit" (click)="editUser(u._id,u.name,u.email,u.password)"><i class="mdi mdi-brush" ></i></a> &nbsp;&nbsp; <a (click)="removeUser(u._id)"><i class="mdi mdi-bookmark-remove"></i></a>  </td>
 
 

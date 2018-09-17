@@ -1,0 +1,50 @@
+<div class="page-content-wrapper ">
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-11">
+        <div class="card m-b-30">
+          <div class="card-body">
+
+            <h4 class="mt-0 header-title">Basic example</h4>
+
+
+            <table class="table">
+              <thead class="thead-default">
+              <tr>
+                <th>#</th>
+                <th>DOC</th>
+                <th>Month</th>
+                <th>year</th>
+                <th>validation</th>
+                <th>comment</th>
+                <th>files</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let d of docs; let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{d.name}}</td>
+                <td>{{d.month}}</td>
+                <td>{{d.year}}</td>
+                <td>{{d.validation}}</td>
+                <td>{{d.comment}}</td>
+                <td>{{d.files}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div> <!-- end col -->
+
+
+    </div> <!-- end row -->
+
+
+
+  </div><!-- container -->
+
+
+</div> <!-- Page content Wrapper -->

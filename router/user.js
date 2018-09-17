@@ -1,14 +1,13 @@
 var express = require('express');
 var userModel = require('../models/userModel');
 var projectModel = require('../models/projectModel');
-var docModel = require('../models/docModel');
 var db = require('../models/db');
 
 
 var router = express();
 
 
-//Get all users
+//******************** Get all users **********************
 router.get('/', function (req, res) {
 
   userModel.find({}, function (err, result) {
@@ -17,7 +16,19 @@ router.get('/', function (req, res) {
 
 })
 
-// find user by his lastName
+
+
+router.get('/getNameUser', function (err, res) {
+  userModel.findById({id: req.query.id}, function (err, user) {
+    if (err) {
+      res.send({err: 'there are error'})
+    }
+    else {
+      res.send(user.name)
+    }
+  })
+})
+// *********************** find user by his lastName *******************
 router.get('/bylastName', function (req, res) {
 
   userModel.find({name: req.body.name}, function (err, result) {
@@ -26,7 +37,7 @@ router.get('/bylastName', function (req, res) {
 
 })
 
-// Find user by a key word
+// ****************** Find user by a key word *******************
 router.get('/key', function (req, res) {
 
   userModel.find({
@@ -37,9 +48,7 @@ router.get('/key', function (req, res) {
       {
         "email": req.body.mot
       }
-
     ]
-
   }, function (err, result) {
     res.send(result)
 
@@ -66,7 +75,7 @@ router.post('/addUser', function (req, res) {
 
 //*************************** Update user ************************
 
-router.put('/updateUserPost', function (req, res) {
+router.put('/updateUser', function (req, res) {
    userModel.findByIdAndUpdate(req.query.id, {
     name: req.query.name,
     email: req.query.email,
@@ -79,18 +88,16 @@ router.put('/updateUserPost', function (req, res) {
      else {
        console.log(result)
      }
-
    })
 
 
   userModel.findById(req.query.id , function(err , user){
     console.log(user)
     for(var i=0 ; i<user.projs.length ; i++){
-console.log(user.projs[i]._id)
+    console.log(user.projs[i]._id)
       projectModel.find({_id : user.projs[i]._id} , function( err , projet){
 
         console.log(projet)
-
 
         for(var j=0 ; j< projet[0].users.length ;j++){
           if(projet[0].users[j]._id == req.query.id ){
@@ -98,8 +105,6 @@ console.log(user.projs[i]._id)
             projet[0].users[j].email = req.query.email
             projet[0].users[j].password = req.query.password
           }
-
-
         }
         projet[0].save(function (err) {
           if (err) {
@@ -109,21 +114,10 @@ console.log(user.projs[i]._id)
             //res.send({state: true})
           }
         })
-
-
-
       })
-
-
-
     }
     res.send({state: true})
   })
-
-
-
-
-
 
 })
 
@@ -131,23 +125,23 @@ console.log(user.projs[i]._id)
 
 router.get('/removeUser', function (req, res) {
 
-  userModel.findById(req.query.id , function(err , result) {
-    for (var i = 0; i < result.projs.length; i++) {
+  userModel.findById(req.query.id , function(err , user) {
+    for (var i = 0; i < user.projs.length; i++) {
 
-      projectModel.findById(result.projs[i]._id, function (err, projet) {
-        console.log(projet)
+      projectModel.findById(user.projs[i]._id, function (err, project) {
+        console.log(project)
         var newuser = []
         this.newuser = []
-        for (var j = 0; j < projet.users.length; j++) {
+        for (var j = 0; j < project.users.length; j++) {
 
-          if (projet.users[j]._id != req.query.id) {
-            this.newuser.push(projet.users[j])
+          if (project.users[j]._id != req.query.id) {
+            this.newuser.push(project.users[j])
           }
 
         }
-        projet.users = this.newuser
+        project.users = this.newuser
 
-        projet.save(function (err) {
+        project.save(function (err) {
           if (err) {
             res.send({state: false})
           }
@@ -157,137 +151,29 @@ router.get('/removeUser', function (req, res) {
         })
       })
 
-      if(i== result.projs.length - 1){
-        userModel.remove({_id: req.query.id}, function (err ) {
+          if(i== user.projs.length - 1){
+            userModel.remove({_id: req.query.id}, function (err ) {
 
-          if(err){
-            res.send({"state": "error"})
+              if(err){
+                res.send({"state": "error"})
+              }
+
+              else {
+
+                res.send({"state": "ok"})
+              }
+            })
           }
 
-          else {
-
-            res.send({"state": "ok"})
-          }
-        })
-      }
-
     }
   })
 
-
-
-
-
-
-
-  })
-
-
-
-
-
-
-
-
-
-// **************************** Get projects by user**************************
-
-router.get('/listProjByUser', function (req, res) {
-
-  userModel.findById(req.query.idUser, function (err, user) {
-    console.log(user)
-    if (err) {
-      res.send({err: 'there are error'})
-    }
-    else {
-
-        console.log(user.projs)
-        res.send(user.projs)
-
-    }
-  })
-})
-
-//**************************** Add new Doc *****************************
-
-router.post('/addDocument', function (req, res) {
-  var getDaysInMonth = function (month, year) {
-    // Here January is 1 based
-    //Day 0 is the last day in the previous month
-    return new Date(year, month, 0).getDate();
-// Here January is 0 based
-// return new Date(year, month+1, 0).getDate();
-  };
-  let date = new Date()
-  var month = date.getMonth()
-  var year = date.getFullYear()
-  var dayNbr = getDaysInMonth(date.getMonth(), date.getFullYear());
-  var doc = new docModel(
-    {
-      month: month,
-      year: year,
-      dayNbr: dayNbr,
-      validation: req.query.validation,
-      comment: req.query.comment,
-      files: [],
-      activity: []
-    });
-
-  userModel.findById(req.query.idUser, function (err, user) {
-    console.log(user)
-    if (err) {
-      res.send({err: 'there are error'})
-    }
-    else {
-      console.log(user.projs)
-      for(var i=0;i<user.projs.length;i++) {
-        if (user.projs[i]._id == req.query.idProj) {
-          user.projs[i].docs.push(doc)
-        }
-      }
-      user.save(function (err) {
-        console.log(err)
-
-        if (err) {
-          res.send({state: false})
-        }
-        else {
-        }
-      })
-    }
-  })
-
-  projectModel.findById(req.query.idProj, function (err, project) {
-    console.log(project.docs)
-    if (err) {
-      res.send({err: 'there are error'})
-    }
-    else {
-      project.docs.push(doc)
-      project.save(function (err) {
-        console.log(err)
-        if (err) {
-          res.send({state: false})
-        }
-        else {
-          res.send({state: true})
-        }
-      })
-    }
-  })
-
-
-})
-
-
-
-
-
+ })
 
 
 router.get('/findById', function (req, res) {
 
-  userModel.findById({_id: req.body.id}, function (err, result) {
+  userModel.findById({_id: req.query.id}, function (err, result) {
 
     res.send(result)
   })
@@ -295,19 +181,25 @@ router.get('/findById', function (req, res) {
 })
 
 
-/*
-router.get('/addP/:name', function (req, res) {
-    res.send("WELCOME "+req.params.name)
+//************************** Get users by project ***********************
+
+router.get('/getUsersByProject', function (req, res) {
+
+
+  projectModel.findById({_id: req.query.idproj}, function (err,project) {
+    console.log(project)
+    if (err) {
+      res.send({err: 'there are error'})
+    }
+    else {
+      res.send(project.users)
+    }
+  })
 })
 
-router.post('/post', function (req, res) {
-    res.send("WELCOME USER "+ req.query.name)
-})
 
-router.post('/postB', function (req, res) {
-    res.send("WELCOME USER "+ req.body.name)
-})
-*/
+
+
 
 
 module.exports = router;

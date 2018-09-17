@@ -21,19 +21,18 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Password</th>
-                <th>Edit</th>
-                <th>Remove</th>
+                <th>Edit/Remove</th>
+
 
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let u of admins; let i=index">
+              <tr *ngFor="let a of admins; let i=index">
                 <th scope="row">{{i+1}}</th>
-                <td>{{u.name}}</td>
-                <td>{{u.email}}</td>
-                <td>{{u.password}}</td>
-                <td><a data-toggle="modal" data-target="#myModalEdit" (click)="editAdmin(u._id,u.name,u.email,u.password)"><i class="mdi mdi-brush"></i></a></td>
-                <td><a data-toggle="modal" data-target="#myModalRemove"><i class="mdi mdi-bookmark-remove"></i></a></td>
+                <td>{{a.name}}</td>
+                <td>{{a.email}}</td>
+                <td>{{a.password}}</td>
+                <td><a data-toggle="modal" data-target="#myModalEdit" (click)="editAdmin(a._id,a.name,a.email,a.password)"><i class="mdi mdi-brush"></i></a> &nbsp;&nbsp; <a (click)="removeAdmin(a._id)"><i class="mdi mdi-bookmark-remove"></i></a></td>
 
 
                 <div id="myModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -44,7 +43,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       </div>
                       <div class="modal-body">
-                        <h4>Edit "{{u.name}}"</h4>
+                        <h4>Edit </h4>
 
 
                         <div class="form-horizontal m-t-20" >
@@ -86,11 +85,11 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       </div>
                       <div class="modal-body">
-                        <h4>You really want to remove "{{u.name}}" as an admin</h4>
+                        <h4>You really want to remove "{{a.name}}" as an admin</h4>
 
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" (click)="removeAdmin(u._id)">Confirm</button>
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" (click)="removeAdmin(a._id)">Confirm</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Ignore</button>
                       </div>
                     </div><!-- /.modal-content -->

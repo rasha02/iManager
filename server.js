@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/admin', admin);
 app.use('/users', user);
 app.use('/projects', project);
-app.use('/document', document);
+app.use('/documents', document);
 
 
 

@@ -9,9 +9,9 @@
           <div class="card-body">
 
             <h4 class="mt-0 header-title">Basic example</h4>
-
+            <h3>{{this.nameuser}}</h3>
             <div class="col-md-3">
-              <button style=" margin-left: 1300px" data-toggle="modal" data-target="#myModalAdd" type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" >Add project</button>
+              <button style=" margin-left: 1300px" data-toggle="modal" data-target="#myModalAdd" type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" >Affect new project</button>
             <!--  <button style=" margin-left: 1300px" type="button" class="btn btn-primary waves-effect waves-light" (click)="affectprojtouser(proj)" >Add project</button>-->
             </div>
             <br>
@@ -31,7 +31,7 @@
                 <tr *ngFor="let p of projs; let i=index">
                   <th scope="row">{{i+1}}</th>
                   <td>{{p.name}}</td>
-                  <td><a  routerLink="/dashboard/docbyproj/{{this.iduser}}/{{p._id}}" ><i class="mdi ion-clipboard"></i></a></td>
+                  <td><a  routerLink="/dashboard/docs-by-user-project/{{this.iduser}}/{{p._id}}" ><i class="mdi ion-clipboard"></i></a></td>
                   <td>&nbsp;<a (click)="removeProjFromListProjByUser(p._id)"><i class="mdi mdi-bookmark-remove"></i></a>  </td>
 
                 </tr>
@@ -54,7 +54,7 @@
                 <div class="form-horizontal m-t-20" >
                   <div class="form-group row">
                     <div class="col-12">
-                      <select  name="proj" [(ngModel)]="proj"  (change)="getidproj(proj)">
+                      <select  name="proj" [(ngModel)]="proj"  (change)="getIdProj(proj)">
                         <option  *ngFor=" let s of projects" [value]="s._id" >{{s.name}}</option>
                       </select>
                     </div>
@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-               <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" (click)="affecNewProjToUser(proj)">Confirm</button>
+               <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" (click)="affectNewProjToUser(proj)">Confirm</button>
                 <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Ignore</button>
               </div>
             </div><!-- /.modal-content -->

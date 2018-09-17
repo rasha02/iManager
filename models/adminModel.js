@@ -3,9 +3,10 @@ var mongoose = require('mongoose');
 var Schema= mongoose.Schema;
 
 var AdminModelSchema = new Schema({
+  name: String,
   email: {type: String,unique:true},
-  password: String,
-  name: String
+  password: String
+
 
 });
 

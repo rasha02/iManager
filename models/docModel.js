@@ -11,6 +11,7 @@ var FilesModelSchema = new Schema({
 });
 
 var DocModelSchema = new Schema({
+  name: String,
   month:String,
   year:String,
   dayNbr:Number,

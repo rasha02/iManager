@@ -130,19 +130,19 @@ router.post('/addProject/:idUser', function (req, res) {
   })
 })
 
-// *****************************
+// ***************************** Update a Project *****************************
 
-router.put('/updateProject/:id', function (req, res) {
-  console.log(req.body)
-  projectModel.findByIdAndUpdate(req.params.id,{name: req.body.name,}, {new:true}, function (err, project) {
+router.put('/updateProject/:idproj', function (req, res) {
+  console.log(req.query)
+  projectModel.findByIdAndUpdate(req.params.idproj,{name: req.query.name,}, {new:true}, function (err, project) {
     if(err){
       res.send({"state": "error"})
     }
     else {
-      for (var i=0;i<project.users.lenght;i++) {
+      for (var i=0;i<project.users.length;i++) {
         userModel.findById(project.users[i]._id, function (req, user) {
           console.log(user);
-        user.projs.findOneAndUpdate(req.param.id, {name: req.body.name}, function (err) {
+        user.projs.findOneAndUpdate(req.param.idproj, {name: req.query.name}, function (err) {
           if (err) res.send({"state": "error"})
           else res.send({"state": "ok"})
         })
@@ -154,11 +154,11 @@ router.put('/updateProject/:id', function (req, res) {
 
 })
 
-//****************************** affect another user to a project  ***************************
+//****************************** affect another project to a user  ***************************
 
-router.post('/affectUserToProj/:idUser',function (req,res) {
+router.post('/affectNewProjToUser/:idUser',function (req,res) {
 
-  projectModel.findById(req.query.idProj , function (err,project) {
+  projectModel.findById(req.query.idproj , function (err,project) {
     if(err){
       res.send({err:'there are error'})
     }
@@ -208,8 +208,9 @@ router.get('/listUsersByProject', function (req, res) {
 
 //************************* Get list projects by User ************************
 
-router.get('/listProjsByUser', function (req, res) {
+router.get('/getProjsByUser', function (req, res) {
   userModel.findById({_id: req.query.idUser}, function (err,user) {
+    console.log(user)
     if (err) {
       res.send({err: 'there are error'})
     }

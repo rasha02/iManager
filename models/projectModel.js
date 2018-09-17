@@ -9,6 +9,7 @@ var FilesModelSchema = new Schema({
   filename: String,
 });
 var DocModelSchema = new Schema({
+  name: String,
   month:String,
   year:String,
   dayNbr:Number,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from '../../services/admin.service';
+import swal from "sweetalert2";
 
 @Component({
   selector: 'app-admin',
@@ -16,10 +17,12 @@ export class AdminComponent implements OnInit {
 
   admins: any;
 
-  constructor(public adminServ:AdminService) { }
+  constructor(public adminServ:AdminService) {
+    this.getallAdmins()
+  }
 
   ngOnInit() {
-    this.getallAdmins()
+
   }
 
   getallAdmins(){
@@ -49,7 +52,7 @@ export class AdminComponent implements OnInit {
 
   }
 
-  addAdmin(name, email, password) {
+  addAdmin() {
     this.adminServ.addAdmin(this.name, this.email, this.password).subscribe(res => {
       this.getallAdmins()
 
@@ -57,12 +60,30 @@ export class AdminComponent implements OnInit {
   }
 
   removeAdmin(id)
-  {
-    this.adminServ.removeAdmin(id).subscribe(res=>{
-      this.getallAdmins();
 
-    })
-  }
+        {
+          swal({
+                 title: 'Are you sure?',
+                 text: "You won't be able to revert this!",
+                 type: 'warning',
+                 showCancelButton: true,
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Yes, delete it!'
+               }).then((result) => {
+          if (result.value) {
+            this.adminServ.removeAdmin(id).subscribe(res=>{
+              this.getallAdmins();
 
+
+            })
+            swal(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+            }
+            })
+        }
 
 }

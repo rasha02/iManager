@@ -9,20 +9,25 @@
           <div class="card-body">
 
             <h4 class="mt-0 header-title">Basic example</h4>
+
             <br>
+
             <table class="table">
               <thead class="thead-default">
               <tr>
                 <th>#</th>
-                <th>Month</th>
-                <th>year</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Remove</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let d of docs; let i=index">
+              <tr *ngFor="let u of users; let i=index">
                 <th scope="row">{{i+1}}</th>
-                <td>{{d.month}}</td>
-                <td>{{d.year}}</td>
+                <td>{{u.name}}</td>
+                <td>{{u.email}}</td>
+               <!-- <td>&nbsp;<a (click)="removeUserFromProj(u._id)"><i class="mdi mdi-bookmark-remove"></i></a>  </td>
+-->
               </tr>
               </tbody>
             </table>
@@ -32,11 +37,10 @@
         </div>
 
 
-
       </div> <!-- end col -->
 
-    </div>  <!-- end row -->
 
+    </div>  <!-- end row -->
 
 
   </div><!-- container -->

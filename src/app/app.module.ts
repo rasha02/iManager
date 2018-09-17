@@ -18,8 +18,11 @@ import { AdminComponent } from './dashboard/admin/admin.component';
 import {AdminService} from './services/admin.service';
 import {UserService} from './services/user.service';
 import { ProjectComponent } from './dashboard/project/project.component';
-import { ProjetbyuserComponent } from './dashboard/projetbyuser/projetbyuser.component';
-import { DocsbyprojComponent } from './dashboard/docsbyproj/docsbyproj.component';
+import {ProjectsByUserComponent} from './dashboard/projects-by-user/projects-by-user.component';
+import {DocsByUserProjectComponent} from './dashboard/docs-by-user-project/docs-by-user-project.component';
+import { UsersByProjectComponent } from './dashboard/users-by-project/users-by-project.component';
+import { DocsByProjectComponent } from './dashboard/docs-by-project/docs-by-project.component';
+import {ProjectService} from './services/project.service';
 
 
 const routes:Routes=[
@@ -29,19 +32,23 @@ const routes:Routes=[
 
        children: [
           {path: '', component: LayoutComponent},
-          {path: 'userInterface', component: UserComponent},
-          {path: 'projetbyuser/:id', component: ProjetbyuserComponent},
-          {path: 'docbyproj/:iduser/:idproj', component: DocsbyprojComponent},
-          {path: 'projectInterface', component: ProjectComponent},
           {path: 'admin', component: AdminComponent},
+          {path: 'user-interface', component: UserComponent},
+          {path: 'projects-by-user/:id', component: ProjectsByUserComponent},
+          {path: 'docs-by-user-project/:iduser/:idproj', component: DocsByUserProjectComponent},
+          {path: 'project-interface', component: ProjectComponent},
+          {path: 'users-by-project/:id', component: UsersByProjectComponent},
+          {path: 'docs-by-project/:id', component: DocsByProjectComponent}
+
+
+
+
        ]
     },
-
 
    {path: '**', component: ErrorComponent},
 
 ]
-
 
 @NgModule({
   declarations: [
@@ -56,8 +63,12 @@ const routes:Routes=[
     UserComponent,
     AdminComponent,
     ProjectComponent,
-    ProjetbyuserComponent,
-    DocsbyprojComponent
+    ProjectsByUserComponent,
+    DocsByUserProjectComponent,
+    UsersByProjectComponent,
+    DocsByProjectComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -67,8 +78,10 @@ const routes:Routes=[
   ],
   providers: [
     AdminService,
-    UserService
+    UserService,
+    ProjectService
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

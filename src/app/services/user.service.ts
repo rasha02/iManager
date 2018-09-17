@@ -10,7 +10,7 @@ export class UserService {
   constructor(public http:HttpClient) { }
 
 
-  getAllUsers(){
+  getallUsers(){
 
     return this.http.get(this.base_url+"users")
   }
@@ -20,10 +20,13 @@ export class UserService {
     return this.http.get(this.base_url+"users/removeUser?id="+id)
 
   }
+  getNameUser(iduser){
+    return this.http.get(this.base_url+"users/getNameUser?iduser="+iduser)
+  }
 
   updateUser(id,name,email,password)
   {
-    return this.http.put(this.base_url+"users/updateUserPost?id="+id+"&name="+name+"&email="+email+"&password="+password, {})
+    return this.http.put(this.base_url+"users/updateUser?id="+id+"&name="+name+"&email="+email+"&password="+password, {})
   }
 
   addUser(name,email,password){
@@ -31,16 +34,16 @@ export class UserService {
     return this.http.post(this.base_url+"users/addUser?name="+name+"&email="+email+"&password="+password,{})
   }
 
-  listprojbyuser(id){
-    return this.http.get(this.base_url+"projects/listProjsByUser?idUser="+id)
+  getProjsByUser(id){
+    return this.http.get(this.base_url+"projects/getProjsByUser?idUser="+id)
   }
 
-  affecNewProjToUser(iduser , idproj){
+  affectNewProjToUser(iduser , idproj){
 
-    return this.http.post(this.base_url+"projects/affectUserToProj/"+iduser+"?idProj="+idproj , {})
+    return this.http.post(this.base_url+"projects/affectNewProjToUser/"+iduser+"?idproj="+idproj , {})
   }
 
-  getallproject(){
+  getAllProjects(){
     return this.http.get(this.base_url+"projects")
   }
 
@@ -49,8 +52,8 @@ export class UserService {
     return this.http.get(this.base_url+"projects/removeProjFromListProjByUser?idUser="+iduser+"&idproj="+idproj)
   }
 
-  getdocbyprojet(iduser , idproj){
-    return this.http.get(this.base_url+"document/listDocByUser?idUser="+iduser+"&idProj="+idproj)
+  getDocsByUserByProj(iduser , idproj){
+    return this.http.get(this.base_url+"documents/getDocsByUserByProj?idUser="+iduser+"&idProj="+idproj)
   }
 
 }

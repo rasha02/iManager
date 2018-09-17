@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/user.service';
 
 import swal from 'sweetalert2'
+import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -12,20 +13,20 @@ export class UserComponent implements OnInit {
   name;
   email;
   password;
-  firstName;
-  lastName;
-  phone;
 
   users: any;
-  constructor(public userServ:UserService) { }
 
-  ngOnInit() {
-    this.getallUsers()
+  constructor(public userServ:UserService, public route :ActivatedRoute) {
+    this.getAllUsers()
   }
 
-  getallUsers(){
+  ngOnInit() {
 
-    this.userServ.getAllUsers().subscribe(res=>{
+  }
+
+  getAllUsers(){
+
+    this.userServ.getallUsers().subscribe(res=>{
       console.log(res);
       this.users=res;
 
@@ -46,7 +47,7 @@ export class UserComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.userServ.removeUser(id).subscribe(res=>{
-          this.getallUsers();
+          this.getAllUsers();
 
         })
         swal(
@@ -56,15 +57,7 @@ export class UserComponent implements OnInit {
         )
       }
     })
-
-
-
-
   }
-
-
-
-
 
 
 
@@ -76,10 +69,11 @@ export class UserComponent implements OnInit {
 
   }
 
+
   updateUser(){
-console.log(this.id,this.name,this.email,this.password)
+  console.log(this.id,this.name,this.email,this.password)
     this.userServ.updateUser(this.id,this.name,this.email,this.password).subscribe(res=>{
-      this.getallUsers()
+      this.getAllUsers()
 
     })
 
@@ -88,7 +82,7 @@ console.log(this.id,this.name,this.email,this.password)
   addUser(){
   this.userServ.addUser(this.name, this.email, this.password).subscribe(res=>{
     console.log("done")
-    this.getallUsers()
+    this.getAllUsers()
 
   })
   }

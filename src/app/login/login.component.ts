@@ -11,8 +11,8 @@ export class LoginComponent implements OnInit {
 
   username;
   password;
-email;
-  constructor(public router:Router , public adminservice :AdminService) {
+  email;
+  constructor(public router:Router , public adminServ :AdminService) {
 
     if(localStorage.getItem('state') == "1"){
       this.router.navigate(["dashboard"])
@@ -29,7 +29,7 @@ email;
     console.log("username: " + this.username);
     console.log("password: " + this.password);
 
-    this.adminservice.login(this.email, this.password).subscribe(data => {
+    this.adminServ.login(this.email, this.password).subscribe(data => {
 console.log(data)
       if (data['auth'] == true) {
         localStorage.setItem("state", "1");
